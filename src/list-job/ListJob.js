@@ -35,7 +35,7 @@ class ListJob extends Component {
     render() {
         let jobElm = null;
         jobElm = this.data.map((item, index) => {
-            return <Job key={index} id={item.id} name={item.name} priority={item.priority}/>
+            return <Job key={index} indexOfItem={index} item={item}/>
         });
 
         return (
@@ -85,7 +85,7 @@ class ListJob extends Component {
                     <AddJobForm />
                     <div className="content row">
                         <div className="col-md-12">
-                            <table className="table table-hovered">
+                            <table className="table table-hovered table-job">
                                 <thead>
                                 <tr>
                                     <th>Index</th>

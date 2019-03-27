@@ -6,3 +6,7 @@
 .content-add-form {
     padding-top: 10px
 }
+
+.table-job {
+    table-layout: fixed;
+}
