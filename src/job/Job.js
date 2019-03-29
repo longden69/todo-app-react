@@ -5,10 +5,14 @@ class Job extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isShowEditForm: false
+            isShowEditForm: false,
+            name: this.props.item.name,
+            priority: this.props.item.priority
         }
 
         this.onShowEditForm = this.onShowEditForm.bind(this);
+        this.handleChangeName = this.handleChangeName.bind(this);
+        this.handleChangePriority = this.handleChangePriority.bind(this);
     }
 
     onShowEditForm() {
@@ -23,6 +27,17 @@ class Job extends Component {
         })
     }
 
+    editJob() {
+    }
+
+    handleChangeName(event) {
+        this.setState({name: event.target.value});
+    }
+
+    handleChangePriority(event) {
+        this.setState({priority: event.target.value});
+    }
+
     render() {
         let rowElm = null;
         rowElm = () => {
@@ -30,18 +45,18 @@ class Job extends Component {
                 return (
                     <>
                         <td>{this.props.indexOfItem + 1}</td>
-                        <td><input className="form-control mr-sm-2" type="text" placeholder="text"/></td>
+                        <td><input className="form-control mr-sm-2" value={this.state.name} onChange={this.handleChangeName} type="text" placeholder="text"/></td>
                         <td>
-                            <select className="form-control" id="exampleFormControlSelect1">
+                            <select className="form-control" value={this.state.priority} onChange={this.handleChangePriority} id="exampleFormControlSelect1">
                                 <option>1</option>
                                 <option>2</option>
                                 <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
                             </select>
                         </td>
                         <td>
-                            <button className="btn btn-info btn-sm">Sửa
+                            <button className="btn btn-info btn-sm" onClick={() => {
+                                this.editJob()
+                            }}>Sửa
                             </button>
                             <button className="btn btn-default btn-sm" onClick={() => {
                                 this.onHideEditForm()

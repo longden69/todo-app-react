@@ -4,16 +4,36 @@ class AddJobForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            showAddForm: false
+            showAddForm: false,
+            jobName: '',
+            priority: 1
         }
 
         this.handleClickShowForm = this.handleClickShowForm.bind(this);
+        this.onHandleChange = this.onHandleChange.bind(this);
+        this.onClickAddJob = this.onClickAddJob.bind(this);
     }
 
     handleClickShowForm() {
         this.setState({
             showAddForm: !this.state.showAddForm
         })
+    }
+
+    onHandleChange(event) {
+        const elm = event.target;
+        const name = elm.name;
+        this.setState({
+            [name]: elm.value
+        })
+    }
+
+    onClickAddJob() {
+        const Job = {
+            name: this.state.jobName,
+            priority: this.state.priority
+        };
+        this.props.onSaveJob(Job);
     }
 
     render() {
@@ -24,25 +44,21 @@ class AddJobForm extends Component {
                 return (
                     <div className="row">
                         <div className="col-md-12 content-add-form">
-                            <form>
-                                <div className="form-row">
-                                    <div className="col">
-                                        <input type="text" className="form-control" placeholder="Tên công việc" />
-                                    </div>
-                                    <div className="col">
-                                        <select className="form-control" id="exampleFormControlSelect1">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                        </select>
-                                    </div>
-                                    <div className="col">
-                                        <button className="btn btn-primary">Thêm</button>
-                                    </div>
+                            <div className="form-row">
+                                <div className="col">
+                                    <input type="text" value={this.state.jobName} name="jobName" onChange={this.onHandleChange} className="form-control" placeholder="Tên công việc" />
                                 </div>
-                            </form>
+                                <div className="col">
+                                    <select value={this.state.priority} name="priority" onChange={this.onHandleChange} className="form-control" id="exampleFormControlSelect1">
+                                        <option value={1}>Low</option>
+                                        <option value={2}>Normal</option>
+                                        <option value={3}>Hight</option>
+                                    </select>
+                                </div>
+                                <div className="col">
+                                    <button className="btn btn-primary" onClick={this.onClickAddJob}>Thêm</button>
+                                </div>
+                            </div>
                         </div>
 
                     </div>

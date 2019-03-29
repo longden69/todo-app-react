@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 import Job from './../job/Job'
 import AddJobForm from './../job/AddJobForm'
+import NavBar from './../navbar/NavBar'
 import './ListJob.css'
 
 class ListJob extends Component {
@@ -9,27 +10,48 @@ class ListJob extends Component {
         {
             id: 1,
             name: 'cv 1',
-            priority: 1,
+            priority: 3,
         },
         {
             id: 2,
-            name: 'cv 1',
-            priority: 1,
+            name: 'cv 12',
+            priority: 3,
         },
         {
             id: 3,
-            name: 'cv 1',
-            priority: 1,
+            name: 'cv 123',
+            priority: 3,
         },
         {
             id: 4,
-            name: 'cv 1',
-            priority: 1,
+            name: 'cv 1234',
+            priority: 3,
         },
     ];
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            strSearch: ''
+        };
+
+        this.handleSearch = this.handleSearch.bind(this);
+        this.handleAddJob = this.handleAddJob.bind(this);
+    }
+
+    handleSearch(val) {
+        this.setState({
+            strSearch: val
+        });
+    }
+
+    handleAddJob(job) {
+        const newJob = {...job, id: this.data.length + 1};
+        this.data.push(newJob);
+        this.setState({
+            strSearch: ''
+        });
     }
 
     render() {
@@ -41,48 +63,8 @@ class ListJob extends Component {
         return (
             <div className="container-fluid">
                 <div className="container">
-                    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                        <a className="navbar-brand" href="#">Navbar</a>
-                        <button className="navbar-toggler" type="button" data-toggle="collapse"
-                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                aria-expanded="false" aria-label="Toggle navigation">
-                            <span className="navbar-toggler-icon"></span>
-                        </button>
-
-                        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul className="navbar-nav mr-auto">
-                                <li className="nav-item active">
-                                    <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
-                                </li>
-                                <li className="nav-item">
-                                    <a className="nav-link" href="#">Link</a>
-                                </li>
-                                <li className="nav-item dropdown">
-                                    <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Dropdown
-                                    </a>
-                                    <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a className="dropdown-item" href="#">Action</a>
-                                        <a className="dropdown-item" href="#">Another action</a>
-                                        <div className="dropdown-divider"></div>
-                                        <a className="dropdown-item" href="#">Something else here</a>
-                                    </div>
-                                </li>
-                                <li className="nav-item">
-                                    <a className="nav-link disabled" href="#" tabIndex="-1"
-                                       aria-disabled="true">Disabled</a>
-                                </li>
-                            </ul>
-                            <form className="form-inline my-2 my-lg-0">
-                                <input className="form-control mr-sm-2" type="search" placeholder="Search"
-                                       aria-label="Search"/>
-                                <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search
-                                </button>
-                            </form>
-                        </div>
-                    </nav>
-                    <AddJobForm />
+                    <NavBar onSearchJob={this.handleSearch} />
+                    <AddJobForm onSaveJob={this.handleAddJob} />
                     <div className="content row">
                         <div className="col-md-12">
                             <table className="table table-hovered table-job">
